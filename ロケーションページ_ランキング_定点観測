@@ -6,7 +6,6 @@ function rank() {
   var getUrl = 'https://aumo.jp/prefectures/13';
   // htmlをテキスト情報にして抽出
   var html = UrlFetchApp.fetch(getUrl).getContentText('UTF-8');
-  // 順位を取得
   
   // ロケーション名を取得
   var title_list = Parser.data(html).from('<h2 class="location-inner__main__spot-info__group__head__title-group--title">').to('</h2>').iterate();
@@ -43,8 +42,6 @@ function rank2() {
   var getUrl = 'https://aumo.jp/areas/167';
   // htmlをテキスト情報にして抽出
   var html = UrlFetchApp.fetch(getUrl).getContentText('UTF-8');
-  // 順位を取得
-  
   // ロケーション名を取得
   var title_list = Parser.data(html).from('<h2 class="location-inner__main__spot-info__group__head__title-group--title">').to('</h2>').iterate();
   
@@ -74,9 +71,87 @@ function imput_date2() {
   sheet.getRange(daterecordrow,datenextcolumn).setValue(today);
 }
 
+//鹿島・水郷周辺のランキングを取得
+function rank3() {
+  // 対象ページのURL
+  var getUrl = 'https://aumo.jp/areas/48';
+  // htmlをテキスト情報にして抽出
+  var html = UrlFetchApp.fetch(getUrl).getContentText('UTF-8');
+  
+  // ロケーション名を取得
+  var title_list = Parser.data(html).from('<h2 class="location-inner__main__spot-info__group__head__title-group--title">').to('</h2>').iterate();
+  
+  //出力したいスプレッドシートのIDとシート名を記入
+  var spreadsheet = SpreadsheetApp.openById('1oCesGoXLO4vmnMZ2ZQMwQR833mCnXxV6nOPgKihdcsk');
+  var sheet = spreadsheet.getSheetByName('鹿島・水郷周辺');
+  // 書き込みを開始する行を指定
+  var recordrow = 2;
+  const nextcolumn = sheet.getLastColumn()+1;
+  
+  //実行
+  for (let i = 0; i <= 30; i++) {
+    sheet.getRange(recordrow,nextcolumn ).setValue(title_list[i]);
+    recordrow++;
+  }
+}
+
+function imput_date3() {
+  // 現在の日時を取ってくる
+  //出力したいスプレッドシートのIDとシート名を記入
+  var spreadsheet = SpreadsheetApp.openById('1oCesGoXLO4vmnMZ2ZQMwQR833mCnXxV6nOPgKihdcsk');
+  var sheet = spreadsheet.getSheetByName('鹿島・水郷周辺');
+  var today = new Date();
+  var daterecordrow = 1;
+  const datenextcolumn = sheet.getLastColumn();
+  // 日付を書き込む関数を作る（トリガーをスプレッドシート編集時に実行するよう設定）
+  sheet.getRange(daterecordrow,datenextcolumn).setValue(today);
+}
+
+
+//むつ・下北半島のランキングを取得
+function rank4() {
+  // 対象ページのURL
+  var getUrl = 'https://aumo.jp/areas/11';
+  // htmlをテキスト情報にして抽出
+  var html = UrlFetchApp.fetch(getUrl).getContentText('UTF-8');
+  
+  // ロケーション名を取得
+  var title_list = Parser.data(html).from('<h2 class="location-inner__main__spot-info__group__head__title-group--title">').to('</h2>').iterate();
+  
+  //出力したいスプレッドシートのIDとシート名を記入
+  var spreadsheet = SpreadsheetApp.openById('1oCesGoXLO4vmnMZ2ZQMwQR833mCnXxV6nOPgKihdcsk');
+  var sheet = spreadsheet.getSheetByName('むつ・下北半島');
+  // 書き込みを開始する行を指定
+  var recordrow = 2;
+  const nextcolumn = sheet.getLastColumn()+1;
+  
+  //実行
+  for (let i = 0; i <= 30; i++) {
+    sheet.getRange(recordrow,nextcolumn ).setValue(title_list[i]);
+    recordrow++;
+  }
+}
+
+function imput_date4() {
+  // 現在の日時を取ってくる
+  //出力したいスプレッドシートのIDとシート名を記入
+  var spreadsheet = SpreadsheetApp.openById('1oCesGoXLO4vmnMZ2ZQMwQR833mCnXxV6nOPgKihdcsk');
+  var sheet = spreadsheet.getSheetByName('むつ・下北半島');
+  var today = new Date();
+  var daterecordrow = 1;
+  const datenextcolumn = sheet.getLastColumn();
+  // 日付を書き込む関数を作る（トリガーをスプレッドシート編集時に実行するよう設定）
+  sheet.getRange(daterecordrow,datenextcolumn).setValue(today);
+}
+
+
 function all(){
   rank();
   imput_date();
   rank2();
   imput_date2();
+  rank3();
+  imput_date3();
+  rank4();
+  imput_date4();
 }
